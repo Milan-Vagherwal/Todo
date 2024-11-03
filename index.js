@@ -17,7 +17,7 @@ app.post("/signup", async function(req, res){
         email: email,
         password: password,
         name: name
-    })
+    });
     res.json({
         message: "You are signed in"
     })
@@ -67,7 +67,8 @@ function auth(req, res, next ) {
     const decodeData = jwt.verify(token,JWT_SECRET);
 
     if(decodeData){
-        req.userId = decodeData.userId;
+        req.userId = decodeData.id;
+        next();
     }
     else{
         res.status(403).json({
